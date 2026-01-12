@@ -37,7 +37,7 @@ Client → API Gateway → Lambda → CloudWatch Logs
 
 - **Outros**
   - Node.js (Lambda)
-  - cURL (testes de carga e validação)
+  - Curl (testes de carga e validação)
 
 ---
 
@@ -205,7 +205,7 @@ Este projeto foi criado com foco em:
 
 ## Autor
 
-**Itadara Dreyar**  
+**Samuel Wilson**  
 Cloud / DevOps Enthusiast
 
 ---
