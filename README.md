@@ -1,73 +1,50 @@
-# Projeto 04 – Cloud Security na Prática com Terraform
+# Projeto 05 – Arquitetura Limpa com Terraform e AWS
 
-## Visão Geral
-Este projeto demonstra a implementação **prática e realista de segurança em APIs na AWS**, com foco em **IAM Least Privilege**, **API Gateway protegido por API Keys e Usage Plans**, **controle de tráfego (throttling/quota)** e **WAF**.
+## 📌 Visão Geral
 
-Todo o ambiente é provisionado **100% via Terraform**, seguindo boas práticas de infraestrutura como código, organização de módulos e arquitetura limpa de aplicação.
+Este projeto demonstra a aplicação de **Arquitetura Limpa (Clean Architecture)** em um contexto de **Infraestrutura como Código (IaC)** utilizando **Terraform** e **AWS**.
 
-O objetivo é servir como **projeto de portfólio**, demonstrando conhecimento aplicado — não apenas teórico — em segurança cloud.
+O foco principal **não é a complexidade da API**, mas sim a **organização do código**, a **separação clara de responsabilidades** e a criação de uma base **escalável, manutenível e profissional** para projetos cloud.
 
----
-
-## Arquitetura
-
-**Fluxo principal:**
-
-Client → API Gateway → Lambda → CloudWatch Logs
-
-**Camadas de segurança:**
-- IAM Least Privilege para Lambda
-- API Key obrigatória
-- Usage Plan com quota e throttling
-- AWS WAF associado ao API Gateway
+Uma API simples (`/health`) foi utilizada apenas como **exemplo prático** para demonstrar a arquitetura.
 
 ---
 
-## Tecnologias Utilizadas
+## 🎯 Objetivo do Projeto
 
-- **AWS**
-  - API Gateway (REST API)
-  - AWS Lambda
-  - IAM
-  - AWS WAF
-  - CloudWatch Logs
-
-- **Infraestrutura como Código**
-  - Terraform
-
-- **Outros**
-  - Node.js (Lambda)
-  - Curl (testes de carga e validação)
+- Aplicar **Arquitetura Limpa** em projetos cloud
+- Separar completamente:
+  - Código da aplicação
+  - Infraestrutura
+- Demonstrar boas práticas de:
+  - Organização
+  - Baixo acoplamento
+  - Escalabilidade
+- Criar um projeto adequado para **portfólio profissional**
 
 ---
 
-## Estrutura do Projeto
+## 🧱 Arquitetura do Projeto
+
+A arquitetura foi dividida em **camadas bem definidas**, cada uma com sua responsabilidade.
 
 ```text
-.
-├── terraform/
-│   ├── main.tf
-│   ├── variables.tf
-│   ├── outputs.tf
-│   ├── iam.tf
-│   ├── lambda.tf
-│   ├── api-gateway.tf
-│   ├── usage-plan.tf
-│   ├── waf.tf
-│   └── providers.tf
+PROJETO-5-terraform-Arquitetura-Limpa/
 │
-├── lambda/
-│   ├── handler.js
-│   ├── services/
-│   │   └── health.service.js
-│   └── utils/
-│       └── response.js
+├── src/                # Camada de aplicação (domínio)
+│   ├── handlers/       # Handlers da Lambda
+│   ├── services/       # Regras de negócio
+│   ├── errors/         # Erros padronizados
+│   └── index.js
 │
-└── README.md
-```
-
----
-
+└── terraform/          # Camada de infraestrutura (IaC)
+    ├── providers.tf
+    ├── variables.tf
+    ├── lambda.tf
+    ├── api-gateway.tf
+    ├── iam.tf
+    ├── outputs.tf
+    └── usage-plan.tf
 ## Segurança Implementada
 
 ### 1️⃣ IAM Least Privilege
@@ -130,7 +107,7 @@ Essas regras adicionam uma camada extra de proteção contra ataques comuns.
 ### Teste sem API Key
 
 ```bash
-curl https://<api-id>.execute-api.us-east-1.amazonaws.com/prod/health
+curl https://jtej0ozi4k.execute-api.us-east-1.amazonaws.com/prod/health
 ```
 
 Resultado:
@@ -165,8 +142,8 @@ Execução de múltiplas requisições em loop via PowerShell:
 
 ```powershell
 for ($i = 1; $i -le 100; $i++) {
-  curl -s -o NUL -w "%{http_code} " `
-    -H "x-api-key: <API_KEY>" `
+  curl -s -o NUL -w "%{http_code} " 
+    -H "x-api-key: <API_KEY>" 
     https://<api-id>.execute-api.us-east-1.amazonaws.com/prod/health
 }
 ```
@@ -213,4 +190,5 @@ Cloud / DevOps Enthusiast
 ## Observações Finais
 
 Este projeto não utiliza soluções simplificadas ou simuladas. Todas as configurações refletem cenários reais encontrados em ambientes produtivos, com foco em segurança, controle de acesso e governança.
+
 
