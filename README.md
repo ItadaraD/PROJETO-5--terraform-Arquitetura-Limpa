@@ -183,7 +183,7 @@ Este projeto foi criado com foco em:
 ## Autor
 
 **Samuel Wilson**  
-Cloud / DevOps Enthusiast
+Cloud / DevOps Professional
 
 ---
 
